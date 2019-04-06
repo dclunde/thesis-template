@@ -282,10 +282,6 @@
 \def\othermemberH#1{\gdef\@othermemberH{#1}}
 \def\othermemberI#1{\gdef\@othermemberI{#1}}
 
-% The names of your other committe members, one per line
-% Commented out because not being used currently, could be investigated as different option at other time - DL 03/2019
-% \def\othermembers#1{\gdef\@othermembers{#1}}
-
 % The number of committee members, which affects both the
 % number of lines and the amount of space between lines
 % on the approval page.

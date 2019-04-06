@@ -7,19 +7,28 @@ The system chosen to organize and host SINATRA for developers is GitHub. It is a
 \indent The final feature used in GitHub was the ReadME files. These files are automatically displayed by GitHub's system when you enter the directory. This allows the developers to convey how that directory fits into the code base, and specifics on the files in the directory, and instructions on how to use the directory. The author has outfitted all of SINATRA's directories with ReadME files. These features were the reason that GitHub was chosen to host SINATRA and they were utilized during development in order to allow efficient and clear code creation.
 % Future - set up all the readme files
 % TO DO make it clear that it was my job to organize
-% TO DO - add picture of code flow - https://guides.github.com/activities/hello-world/
+
+
+\begin{figure}
+\includegraphics[width=.95\textwidth]{branching.png}
+\centering
+\caption{Example of GitHub workflow}
+\label{fig:github}
+\end{figure}
+
+
 % TO DO - add picture of SINATRA's ReadME
 \subsection{Doxygen}
 Doxygen is a automatic documentation creator from source code \cite{doxygen}. It was chosen, configured, and used to create the SINATRA Developer Manual. Doxygen is given access to the source code, which it searches through and creates comprehensive documentation of the code base. For SINATRA, it creates descriptions of all of the classes, functions, and files. It shows what each class consists of. For example, it shows that the Mesh class contains structure classes, public types, public member functions and more as seen in figure \ref{fig:Doxygen_Mesh}. It is build in HTML so each attribute is linked to the actual function. It is also possible to see the location of that item in the source code. \par
-\indent The most important part of Doxygen is that it allows the user to customize the documentation. It allows the HTML file to be built in many different ways to make it work best for SINATRA. But more importantly, it takes comments made in the source code about the attributes and displays them in a clear and concise way. This a developer to quickly find an attribute, where it is referenced in the rest of the source code, where it is built, and what the creator commented about it. This allows new developers to quickly learn SINATRA and start developing their own features. It also allows quick debugging of heritage code by new developers, which ensures that SINATRA will not fall victim to an error that can only be reasonably fixed by the original developer. The author has created a Doxygen manual of SINATRA, as well as a doxygen input file and batch script for easily updating the manual as more developers add to SINATRA. The user manual has fully commented function and parameter descriptions for all the source code.
+\indent The most important part of Doxygen is that it allows the user to customize the documentation. It allows the HTML file to be built in many different ways to make it work best for SINATRA. But more importantly, it takes comments made in the source code about the attributes and displays them in a clear and concise way. This a developer to quickly find an attribute, where it is referenced in the rest of the source code, where it is built, and what the creator commented about it. This allows new developers to quickly learn SINATRA and start developing their own features. It also allows quick debugging of heritage code by new developers, which ensures that SINATRA will not fall victim to an error that can only be reasonably fixed by the original developer. The author has created a Doxygen manual of SINATRA, as well as a Doxygen input file and batch script for easily updating the manual as more developers add to SINATRA. The user manual has fully commented function and parameter descriptions for all the source code.
 % Future - comment all functions
 
 
 \begin{figure}
 \includegraphics[width=.95\textwidth]{Doxygen_Mesh.png}
 \centering
-  \caption{Documentation created by Doxygen for the Mesh Class}
-  \label{fig:Doxygen_Mesh}
+\caption{Documentation created by Doxygen for the Mesh Class}
+\label{fig:Doxygen_Mesh}
 \end{figure}
 
 % the full program isn't completly documented. Noht every boolean switch and item exctera
