@@ -23,10 +23,10 @@ The original developers have designed this work flow for SINATRA while including
 SINATRA has been designed to be simple to develop and execute. Execution is completed through one executable file and one input text file. For simplicity, Windows\textsuperscript{TM} users can drag the .txt file onto the .exe file to run the simulation. SINATRA was deliberately built to be machine independent to reduce the risk of the code not being developer further or used for new tasks. Therefore, the executable and output do not depend on using a specific Integrated Developer Environment like Visual Studio\textsuperscript{TM} or even using a certain operating system. A user can run many simulations or string together meshing, simulating, and analysis simply through a batch script. An example script is shown in Appendix \ref{app:examplescript}. \par
 Because SINATRA was built to be platform independent, it is very easy to compile. It requires only a single command with zero libraries.\footnote{Need openmp for parallelization} There are sample compile statements in the ReadME and compile scripts, but even an intermediate C++ coder could figure out how to compile SINATRA from the file list alone. This helps new developers move quickly through the code learning phase and can even allow beginners to explore the code base and test more complicated features. SINATRA has been tested through being compiled with various compilers and on different operating systems.  
 
-% TO DO add compile statements to the readme
-% TO DO add ppt graphic of this codeflow one with all the files and titles
+% TO DO add ppt graphic of this codeflow one with all the files and titles - appendix
 % Future - add example of scripting all of them together
-% Future - make an input file for meshing
+
+% TO DO talk about debugging and gdb
 
 \subsection{Analysis}
 % Future make simple tecplot analysis script
@@ -48,7 +48,6 @@ Another simple process to reduce the execution time is during the linking phase.
 Finally, an important tool for execution time analysis is a profilier. A profilier allows the user to view exactly how often each line of code is run, how long it takes to run, and the subprocesses which contribute to that execution time. This is a strong way to identify simple coding bottlenecks and optimizing the coding time. The author has set up the compiling and code base in order to fit with the profilier Very Sleepy\textsuperscript{TM} \cite{Sleepy}. This is a light and simple profilier which shows each line of the source code and the timing involved. \par
 
 
-% Add Paralization in the input file
 % ADD table of a simulation with each of these items enabled
 % Cite processer information
 % Cite DSMC paralization papers

@@ -1,3 +1,24 @@
 \chapter{Example Batch Script}
 \label{app:examplescript}
-Seen below is an example batch script written for Windows\textsuperscript{TM}. 
+Seen below is an example batch script written for Windows\textsuperscript{TM}. It can be found in the resources directory under SampleWorkflow.bat. 
+
+\begin{verbatim}
+REM This is a sample workflow which simulates a empty domain
+REM It meshes a 64 empty domain
+REM Then it runs a simple empty domain simulation
+REM Finally, it generates a gif of the particles in the domain
+
+
+REM Run the input program
+cd ..\inputProgram
+Mesh.exe MeshInput.txt
+
+REM Run the Simulation program
+cd ..\simulationProgram
+DSMC.exe ..\resources\Complex_Input.txt
+
+REM Run the output program
+cd ..\outputProgram
+matlab -r FlowVelocityDistributionAnim()
+\end{verbatim}
+
