@@ -1,0 +1,107 @@
+\chapter{Simple Distribution Walkthrough}
+\label{app:walkthrough}
+Seen below is a simple tutorial for starting with SINATRA. It can be found in the documentation/SimpleDistribution directory as ReadMe.md. 
+
+\begin{verbatim}
+SINATRA Simple Distribution Manual
+Dominic Lunde
+
+
+Hello! Welcome to a tutorial on how to use SINATRA.
+
+First, requirements
+1) Windows OS
+2) Matlab or Matlab runtime - for output only
+
+This will walk you through a simple simulation case. 
+Then it will show you how to use the GUI and then you can have fun!
+
+
+
+Step 1 - Mesh
+
+We must create a mesh file. This is done through
+ the Mesh.exe executable.
+The MeshInput.txt file is already set up to create
+ 8 cells through 1 cut.
+ 
+Therefore we can run the mesher by either:
+a) Dragging MeshInput.txt onto Mesh.exe
+b) Running "Mesh MeshInput.txt" into a
+ command window set to this directory
+
+After this is done, you should see your
+ mesh file as a .plt file appear. Good!
+
+
+Step 2 - Simulate
+
+Now we can simulate some particles. 
+Complex_Input.txt is set up to use
+ 8 cells and run 10 timesteps
+
+Therefore we can run the mesher by either:
+a) Dragging Complex_Input.txt onto DSMC.exe
+b) Running "DSMC Complex_Input.txt"
+ into a command window
+
+All done! You will see a file called SINATRA_OUTPUT.txt.
+This shows you very simple time step info. 
+You will also see SINATRA_uniform_properties_000001.plt.
+This has Tecplot data from the first time step.
+
+
+Step 3 - Analysis
+
+We want to see those particles move right? 
+We need to change some things first.
+Open Complex_Input.txt and go
+ to the "Output Information" Section
+Between the Tecplot Sample Frequency and the *** add this.
+
+Particle Animation
+0
+1
+VelocityOutput\velocityFromParticles_
+
+The first line is the trigger word, next is the start time,
+ then the frequency of output, and finally the base filename.
+--Create the folder VelocityOutput 
+ so these files have a place to go. 
+Now run the simulation again. 
+
+Now if you open VelocityOutput you will see 11 files! 
+We can use those to view the particles and their movements.
+--Open FlowVelocityDistributionAnim.m in Matlab and run
+
+A file called SINATRA_gif.gif will be
+ created and you can see your particles!
+However, it's a mess and they don't seem to move. Let's change that. 
+In Complex_Input 
+--Change the Time Step to 1e-5 
+--Change the Total Simulation Time to 10e-5.
+This will allow the particles to move further each frame. 
+Now let's make less particles.
+--Set the Number Density to 1e-22.
+Now rerun the simlulation and analysis
+ and boom! Particles in a box. 
+
+Step 4 - GUI
+
+Now I'm going to let you play with the GUI. Open up SINATRA_GUI.exe. 
+We're going to have to change a few things. 
+SINATRA Output file - SINATRA_OUTPUT.txt
+Tecplot Output      - SINATRA_uniform_properties.plt
+Velocity Output     - VelocityOutput/velocityFromParticles_
+Mesh File           - FE_NodeLocations_UnitCubeQuad8Cells_TEC.plt
+Input File          - Complex_Input.txt
+
+This GUI prints input files. 
+Try it by pressing "Write File" then "Open File". 
+Then change something and see how it changes the input file. 
+Finally, you can press "Simulate" to run that input file on DSMC.exe.
+
+Have fun!
+
+
+\end{verbatim}

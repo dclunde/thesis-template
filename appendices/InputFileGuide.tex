@@ -1,0 +1,135 @@
+\chapter{Input File Guide}
+\label{app:inputfileguide}
+This is the Input File Guide. It can be found in the ReadMe for the resources file. It explains each command of the input file and how it works.
+
+\begin{verbatim}
+Input file Guide  
+  
+SINATRA reads input files line by line.   
+It searches for key words and ignores words which don't fit them.   
+Then it takes the items in the line under the keyword and
+ parses that for the simulation.  
+  
+There are 6 sections to the input file. The sections are
+ deliminated by *  
+After the first section, the order of the sections does not matter.  
+The order of the trigger words do not matter within the sections  
+  
+Section 1 - This is the intro section. It does not have
+ a header trigger  
+  
+"Mesh Input Filename"                               - path name to 
+ the file which holds the mesh information  
+"Number of Real Particles to Simulation Particles"  - number as a 
+ double which is the ratio of real particles per simulation particles  
+"Boundary Conditions"                               - boundary
+ conditions of the walls. 6 space deliminated string arguments
+  for the type of the walls. Options are "INFLOW","OUTFLOW",
+   "SWALL","DWALL","PWALL". Order of the walls is
+    -X,+X,-Y,+Y,-Z,+Z.  
+"Collision Scheme"                                  - an integer
+ which signifies which collision scheme to use  
+"Sphere Model"                                      - an integer
+ which signifies which sphere model to use  
+"Total Simulation Time"                             - a double
+ showing the total time the simulation should run  
+"Time Step"                                         - a double of
+ the amount of time for each time step  
+  
+  
+Section 2 - Trigger "Initial Conditions"   
+This section contains simple initial conditions  
+  
+"Number Density"     - a double with the number density
+ for the whole simulation  
+"Mixture"            - a space separated line of alternating
+ integers and doubles. The first number is the species
+  id and the second is the percentage it is in the
+   mixture being simulated  
+"Stream Temperature" - a double temperature in Kelvin  
+"Stream Velocity"    - space separated doubles which are 
+ the X,Y,Z direction of the stream velocity  
+  
+  
+Section 3 - Trigger "Boundary Condition Information"  
+This section contains the information about the Boundaries  
+  
+There are 6 items which should be put in this. 
+ They each start with "BC X".   
+X is the number of the boundary from 0 to 5
+ following -X,+X,-Y,+Y,-Z,+Z.   
+Each section ends with a "&".   
+They contain  
+  
+"Number Density"  
+"Mixture"  
+"Stream Temperature"  
+"Stream Velocity"  
+  
+where each are defined the same way as in Section 2.  
+  
+  
+Section 4 - Trigger "Output Information"  
+This section defined the output variables needed to view the data  
+  
+"Output File Name"           - a string path to
+ where the simple output file will be placed  
+"Tecplot Base Name"          - a string path which
+ is the base of the Tecplot output files. It will be
+  edited with timestep information for each new file.
+   WARNING - if the folder path does not exist, no
+    files will be created.  
+"Sample Cell Type"           - a flag for which sampling 
+ should be used. 1 stands for leaf cells and 2 stands for 
+  the immediate parents of the leaf cells  
+"Tecplot Sample Frequency"   - an integer of the number of
+ time steps between each sampling  
+"Tecplot Sample Start Time"  - a double which defines the
+ start time for Tecplot sampling  
+"Particle Animation"         - a three lined argument.
+ first is start time. second is frequency (integer), and
+  final is the base file name for the animation files  
+  
+  
+  
+Section 5 - Trigger "Species Information"  
+This section holds the information for the species to be used  
+  
+Each species section starts with the trigger "Species"  
+After this a list of items are included which are added
+ to that species class  
+These are listed below in order.   
+  
+Reference Temperature            - Kelvin    - double  
+Molecular Diameter               - meters    - double  
+Mass                             - kilograms - double  
+Rotational Degrees of Freedom    - number    - integer  
+Vibrational Degrees of Freedom   - number    - integer  
+Characteristic Temperature (Rot) - Kelvin    - double  
+Characteristic Temperature (Vib) - Kelvin    - double  
+Viscosity Index                  - number    - double  
+Viscosity Coefficient            - number    - double  
+Charge                           - Columbs   - double  
+VSS Exponent (VSS sphere only)   - number    - double    
+  
+  
+Section 6 - Trigger "Optional Keywords"  
+Optional items for the simulation.   
+These don't necessarily have a second line, they can be
+ used just as single line triggers  
+  
+"diffusion"              - if trigger is there, enables 
+ the diffusion test case  
+"init_velocity_gradient" - Next line is the direction of 
+ the gradient (X,Y,Z). Next line is 6 item deliminated by
+  spaces with the inputs for the velocity gradient in the
+   normal 6 direction order  
+"Charged Simulation"     - triggers a charged simulation  
+"Parallel Enabled"       - triggers a parallel simulation   
+  
+  
+Any other questions about the input file can be solved
+ by emailing the original developers. Or by reading 
+  through input.cpp and input.h.  
+  
+\end{verbatim}
