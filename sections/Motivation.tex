@@ -89,7 +89,6 @@ There are many methods to create something new and they all begin with an idea t
 \indent DSMC fits into an important gap in fluid simulation methods. It is a particle based method, which allows it to accurately model high knudsen number simulations in which continuum codes break down. But it is also is based on probability and statistics and therefore allows critical computation time saving mathematics and algorithms to allow DSMC to be on par with legacy continuum methods. It simulates many super-particles in a domain, each of which is comprised of millions of physical particles, and uses probability and statistics to determine collisions surface interactions. This allows for a larger amount of high knudsen number scenarios to be simulated, including important astronautics applications. As seen in Figure \ref{fig:dsmc_application}, DSMC is now used for many important Aerospace analysis tasks. \par
 
 
-
 \indent Unfortunately, DSMC alone does not account for a large area of aerospace research, plasma. Plasma exists when there are a large amount of ions and enough high energy electrons to keep ionizing the gas. As seen in Table \ref{tab:plasma}, plasma can exist in many various situations and environments. Even common place things like lightning and a candle flame contain plasma. There are two large areas of aerospace research which take place within a plasma environment: Atmospheric Re-entry and Electric Propulsion. Both exist in a high knudsen number environment, but include charged particles. Therefore, DSMC is not enough to model these situations. \par
 
 
@@ -112,16 +111,25 @@ Laser Plasma         & 10\textsuperscript{20}   & 10\textsuperscript{2} \\ \hlin
 
 \indent Plasma is comprised of, on average, equal parts of negative electrons and positive ions, otherwise known as quasi-neutrality. However, there can be systematic (electric thruster) or random (solar wind) fluctuations which cause a local net charge. This fact means that the plasma will create electric forces which in turn effect the particles in a plasma. This is why DSMC cannot simulate charged particles, it only moves and collides the particles, it does not have a mechanism to calculate the electric force and update the particles velocities. This is where the Particle In Cell (PIC) method comes in. \par
 
-\indent The PIC method 
+\indent The PIC method is a standard method to calculate the force on electrically charged particles in a particle type model. It is based on a mesh system comprised of nodes, upon which field calculations are made. The mathematics of charged particles forces in terms of PIC will be discusses in Chapter \ref{chap:charge}. PIC however, does not account for collisions between particles. To accuratly model a plasma for aerospace research, collisions between particles should be accounted for. This naturally leads to the necessity for a DSMC-PIC combined method. The same mesh can be used for calculating collisions and macro-properties through the DSMC side as well as being used to calculate the fields in the domain and how they affect the particle's velocities. This allows for a program which can simulate a large number of various scenarious. \par
+
+
+\indent One scenario within Aerospace research for which a DSMC-PIC simulation is optimal is electric propulsion. There are three main methods of spacecraft propulsion: cold gas, chemical, and electric. Chemical is the classic big fire and smoke engines used to put spacecraft and humans into orbit. Cold gas is simply expelling pressurized gas to provide thrust. Electric propulsion uses electricity to create a higher thrust and more efficient engines on spacecraft. Electric propulsion can either be electrostatic, electrothermal, or electromagnetic, however a nearly universal commonality in electric thrusters is that the expellled gas, in the form of a plume, is usually in a plasma state. An electric propulsion engine, in this case an ion engine, is seen in Figure \ref{fig:ion_thruster}. This figure shows the neutral propelant gas being ionize din the chamber, then the ions are accelerated out through magnetic grids to create thrust. This results in a plasma plume. Being that the spacecraft is in space and that the thrusters do not expel dense amounts of gas, this plasma fits right into the realm of a DSMC-PIC simulation. In this lies the motivation for this thesis. \par
+
+
+\begin{figure}
+    \includegraphics[width=.85\textwidth]{figures/ion_thruster.png}
+    \centering
+    \caption{Diagram of an Ion Thruster \cite{ion_thruster} }
+    \label{fig:ion_thruster}
+\end{figure}
+
+%\footnote{By Oona Räisänen - Own work; self made in Inkscape. Based on File:Ion_engine.gif., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=20308289}
+
 
 
 \section{Overarching Goal}
-This thesis is one project in a series of projects. The goal is to have a Cal Poly homegrown simulation that can simulate an entire electric thruster. This is a task that has not yet been accomplished in manner accessible to university researchers. A simulation of a full electric thruster requires a fluid based simulation for the gas inside the thruster and then a rarefied gas code for the exhaust plume. There are not codes that have been built as one simulation, instead researcher attempt to join a fluid code and rarefied gas code together. Cal Poly’s Aerospace department is unique in that a fluid code and a rarefied gas code are being developed from the ground up in the exact same manner. The early developers and advisors worked together to build these codes to be compatible from the beginning. \par
+This thesis is one project in a series of projects. The end goal is to have a Cal Poly homegrown simulation that can simulate an entire electric thruster. This is a task that has not yet been accomplished in manner accessible to university researchers cite{}. A simulation of a full electric thruster requires a fluid based simulation for the gas inside the thruster and then a rarefied gas code for the exhaust plume. There are not codes that have been built as one simulation, instead researcher attempt to join a fluid code and rarefied gas code together. Cal Poly’s Aerospace department is unique in that a fluid code and a rarefied gas code are being developed from the ground up in the exact same manner. The early developers and advisors worked together to build these codes to be compatible from the beginning. \par
 
 \indent This thesis is the third project of the homegrown DSMC code, code name SINATRA, which will be able to simulate the thruster’s plasma exhaust plume. The first three developers worked together in a staggered capacity to build SINATRA up to a working DSMC-PIC code. The first, David Galvez, developed the base framework and kinematics \cite{Galvez2018a}. Next Robert Alliston built up the collisions and particle models cite{Mac’s Thesis}. This thesis adds charged particle simulation to SINATRA. At the same time as this thesis, Anthony Gay is building the fluid side simulation. Intentionally many things will be common between the codes. They are both written in C++ and are class based. They share the same process control items including the execution style, distribution method, and the other systems engineering items shown in Chapter \ref{chap:systems}. They share the same mesh type, input class, and other items to help them work together as one simulation. A future project is slated that will take both simulations and build the interaction system to connect them across each timestep.
 . 
-
-
-
-% cite no full thruster code
-% Cite macs thesis when it comes in
