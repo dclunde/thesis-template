@@ -353,7 +353,8 @@
         of the Requirements for the Degree \par
         \@degree~in~\@field
 
-        \addvspace{0.65in}
+        \vfill\null
+        %\addvspace{0.65in}
 
         by \par
         \@author \par
@@ -406,6 +407,9 @@ DATE SUBMITTED: \@degreemonth~\@degreeyear
 
 \end{alwayssingle}
 }
+
+%Dedication page
+
 
 
 % COMMITTEEMEMBERSHIPPAGE - Cal Poly (Added by Andrew Tsui 6/09)
