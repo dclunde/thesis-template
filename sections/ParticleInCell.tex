@@ -54,7 +54,7 @@ The characteristic length of those charge inequalities can be calculated through
 \end{equation}
 \(\phi\) = Electric Potential \par
 
-\indent The electric potential comes from the double divergence of the charge density. The electric potential can be seen in Equation \ref{eqn:poisson}, which is also known as the Poisson Equation, specifically for electrostatics. \par
+\indent The electric potential comes from the double gradient of the charge density. The electric potential can be seen in Equation \ref{eqn:poisson}, which is also known as the Poisson Equation, specifically for electrostatics. \par
 
 \Needspace{5\baselineskip}
 \begin{equation}
@@ -94,7 +94,7 @@ The characteristic length of those charge inequalities can be calculated through
 % example from here http://www.texample.net/tikz/examples/simple-flow-chart/
 
 \subsection{Particle in Cell Algorithm}
-
+\label{sec:algorithm}
 
 \tikzstyle{block} = [rectangle, draw, fill=white, 
     text width=5em, text centered, rounded corners, minimum height=4em]
@@ -107,16 +107,20 @@ The characteristic length of those charge inequalities can be calculated through
   \begin{tikzpicture}[node distance = 2cm, auto]
     % Place nodes
         \node [block] (init) {Initialize System};
-        \node [block_pic, below of=init, node distance=3cm] (density) {Calculate Charge Density};
-        \node [block_pic, below of=density, node distance=3cm] (poisson) {Solve Poisson's Equation};
-        \node [block_pic, below of=poisson, node distance=3cm] (e_field) {Calculate Electric Field};
+        \node [block_pic, below of=init] (density) {Calculate Charge Density};
+        \node [block_pic, below of=density] (poisson) {Solve Poisson's Equation};
+        \node [block_pic, below of=poisson] (e_field) {Calculate Electric Field};
         \node [block_pic, left of=init, node distance=3cm] (velocity) {Update Particle Velocity};
-        \node [block, below of=e_field, node distance=3cm] (stop) {Stop Simulation};
+        \node [block, below of=e_field] (stop) {Stop Simulation};
         % Draw edges
-        \path [line] (init) -- (stop);
+        \path [line] (init) -- (density);
+        \path [line] (init) -- (velocity);
+        \path [line] (density) -- (poisson);
+        \path [line] (poisson) -- (e_field);
+        \path [line] (e_field) -- (stop);
     \end{tikzpicture}
     \label{fig:pic_flow}
-    \caption{DSMC-PIC Hybrid Code Flow. White blocks are DSMC algorithms \cite{Galvez2018a}. Red are PIC. }
+    \caption{DSMC-PIC Hybrid Code Flow. White blocks are DSMC algorithms \cite{Galvez2018a}. Red are PIC. IN WORK - WAITING ON TEX FILES FROM DAVID}
 \end{figure}
 
 There are many ways to take these formulas and code flow and turn into a working simulation.  There could be multiple methods for all of these calculations, which leads to the various techniques for PIC codes, similar to the various DSMC codes. The ones chosen for this are simple and robust. First, while the DSMC method is based upon cells full of particles, the PIC method depends on the nodes of the cells upon which the fields can be calculated. When calculating the charge density, the charge must be distributed to those nodes. This is done through weighted charge distribution. The distance between the particle and the 8 nodes of it's cell is calculated, and then the 8 different volumes which the particle cuts the cell into are calculated. Those weights determine the amount of charge from the particle distributed to each node. \par
