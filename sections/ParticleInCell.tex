@@ -1,9 +1,8 @@
+
 \section{Particle In Cell}
 
-As said before, plasma is quasi-neutral in that it has about even densities of ions and electrons. However, there can be patches of charge inequality. Therefore, the gradient between the particles creates an electric field, which in turn applies a force on the particles and changes their velocities. \par
+In order to model the charged particle interactions, a particle in cell method is implemented in SINATRA. As previously stated, the plasma is quasi-neutral in that it has about even densities of ions and electrons. There can, however, be patches of charge inequality. Therefore, the gradient between the particles creates an electric field, which in turn applies a force on the particles and changes their velocities. \par
 
-
-\subsection{Description of Equations}
 
 The characteristic length of those charge inequalities can be calculated through the Debye Length, \(\lambda_{De}\), shown in Equation \ref{eqn:debye} \cite{debye}. \par
 
@@ -13,30 +12,31 @@ The characteristic length of those charge inequalities can be calculated through
     \label{eqn:debye}
     \lambda_{De} = \sqrt{\frac{\epsilon_0 \: T_e}{e \: n_0}}
 \end{equation}
-\(T_e\) = Electron Temperature \\
 \(\epsilon_0\) = Permittivity of free space \\
-\(e\) = elementary charge \\
-\(n_0\) = plasma density \par
+\(T_e\) = Electron Temperature \\
+\(e\) = Elementary charge \\
+\(n_0\) = Plasma density \par
 
-\indent This Debye length is the first plasma property which helps with setting up the simulation. The Debye length gives us the a good approximation for cell size when creating a PIC mesh. \par 
+\indent This Debye length is the first plasma property which helps with setting up the simulation. The Debye length gives us a good approximation for cell size when creating a PIC mesh. \par 
 
-\indent Similar to the Molecular Dynamics method, it is possible to model every particle in a domain \footnote{This explination of the Electro-Static PIC method draws much of it's material from \cite{es-pic} because it was used as a reference and it is attempting to explain the same method at the same level as this thesis.}. Charged interactions between particles would be calculated through the Coulomb Force, seen in Equation \ref{eqn:coulmb}. However, as seen by the \(q_1\) and \(q_2\) in the Coulomb force, the force on each particle would have to be the sum of every other particle in the domain. This is still computationally in-feasible. \par 
+\indent Similar to the Molecular Dynamics method, it is possible to model every particle in a domain\footnote{This explination of the Electro-Static PIC method draws much of it's material from \cite{es-pic} because it was used as a reference and it is attempting to explain the same method at the same level as this thesis.}. Charged interactions between particles would be calculated through the Coulomb Force, seen in Equation \ref{eqn:coulmb}. The Coulomb Force is only the force between two particles. Therefore, to calculate the force on a single particle, the force of each particle in the domain must be summed. This is still computationally infeasible. \par 
 
 \Needspace{8\baselineskip}
 \begin{equation}
     \label{eqn:coulmb}
-    \vec{F} = \frac{1}{4 \pi \epsilon_0} \frac{q_1 q_2}{r^2}  \: \vec{r}_{12}
+    \vec{F_C} = \frac{1}{4 \pi \epsilon_0} \frac{q_1 q_2}{r^2}  \: \vec{r}_{12}
 \end{equation}
+\(F_C\) = Coulomb Force between two particles \\
 \(\epsilon_0\) = Permittivity of Free Space \\
 \(q\) = Charge of a particle \\
 \(r\) = Distance between particle 1 and 2 \\
 \(\vec{r}_{12}\) = The direction of the line connecting the two particles \par
 
-\indent In PIC, the particles move according to the Lorenz force, seen in Equation \ref{eqn:lorenz}. This force can be calculated across the entire domain and then applied to each particle, reducing the order of the simulation to \(O(n)\) \cite{es-pic}. \par
+\indent In PIC, the particles move according to the Lorentz force, seen in Equation \ref{eqn:lorentz}. This force can be calculated across the entire domain and then applied to each particle, reducing the order of the simulation to \(O(n)\) where \(n\) is the number of particles in the domain \cite{es-pic}. \par
 
 \Needspace{8\baselineskip}
 \begin{equation}
-    \label{eqn:lorenz}
+    \label{eqn:lorentz}
     \vec{F} = q (\vec{E} + \vec{v}  \times \vec{B})
 \end{equation}
 \(q\) = Particle Charge \\
@@ -44,7 +44,7 @@ The characteristic length of those charge inequalities can be calculated through
 \(v\) = Particle Velocity \\
 \(B\) = Magnetic Field \par
 
-\indent It is not in the scope of this thesis to examine the effect of the self induced or an applied magnetic field, therefore the force is reduced to \(\vec{F} = q \vec{E}\). The electric field can be calculated through the gradient of the electric potential, as shown in Equation \ref{eqn:e_field}. \par
+\indent It is not in the scope of this thesis to examine the effect of the self induced or an applied magnetic field, therefore the force is reduce \ref{sec:algorithm}d to \(\vec{F} = q \vec{E}\). The electric field can be calculated through the gradient of the electric potential, as shown in Equation \ref{eqn:e_field}. \par
 
 
 \Needspace{5\baselineskip}
@@ -64,36 +64,37 @@ The characteristic length of those charge inequalities can be calculated through
 \(\rho\) = Charge Density \\
 \(\epsilon_0\) = Permittivity of Free Space \par
 
-\indent The charge density is found in Equation \ref{eqn:density}. More information on the PIC method to calculate the charge density is given in section ref{the section}. \par
+\indent The charge density is found using Equation \ref{eqn:density}. More information on the PIC method to calculate the charge density is given in section \ref{sec:algorithm}. \par
 
 \Needspace{5\baselineskip}
 \begin{equation}
     \label{eqn:density}
     \rho = e(Z_i n_i - n_e)
 \end{equation}
+\(e\) = Elementary Charge \\
 \(Z_i\) = Ion Charge \\
-\(n\) = number density \\
-\(i\) = subscript for Ions \\
-\(e\) = subscript for electrons \par
+\(n\) = Number density \\
+\(i\) = subscript for ions \\
+\(X_e\) = subscript for electrons \par
 
-\indent These set of equations give us the particle in cell method. Calculate the charge density, then electric potential, then the electric field. Use that field to update the velocities of the particles. The addition of these calculations into the DSMC method is shown in Figure \ref{fig:pic_flow}. However, an important assumption is made for this thesis. Electrons are much smaller than ions and therefore travel much faster. The difference in speeds between the two means that a simulation which includes both ions and electrons as simulated particles would need to have a time-step which captured the electron movement, and therefore would be wasting a lot of time on the ions barely moving. In order to simplify the simulation, a fluid assumption is made for the electrons. This is a valid assumption when viewed from the ions reference frame because the electron particles themselves move so fast that the ions are only affected by the overall distribution of electrons. This fluid assumption is calculated through the Boltzmann relationship \cite{es-pic}, and can be seen in Figure \ref{eqn:e_density}.
+An important assumption is made for this thesis. Electrons are much smaller than ions and therefore travel much faster. The difference in speeds between the two means that a simulation which includes both ions and electrons as simulated particles would need to have a time-step which captured the electron movement, and therefore would be wasting a lot of time on the ions barely moving. In order to simplify the simulation, a fluid assumption is made for the electrons. This is a valid assumption when viewed from the ions reference frame because the electron particles themselves move so fast that the ions are only affected by the overall distribution of electrons. This fluid assumption is calculated through the Boltzmann relationship \cite{es-pic}, and can be seen in Equation \ref{eqn:e_density}.
 
 
 \Needspace{5\baselineskip}
 \begin{equation}
     \label{eqn:e_density}
-    n_e = n_0 \exp{\frac{\phi - \phi_0}{k T_e}}
+    n_e = n_0 \exp\Big(\frac{\phi - \phi_0}{k T_e}\Big)
 \end{equation}
 \(n\) = number density \\
 \(\phi\) = Electric Potential \\
 \(\phi_0\) = Initial Electric Potential \\
-\(T_e\) = Temperature of the Electrons \\
-\(k\) = Boltzmann Constant \par
+\(k\) = Boltzmann Constant \\
+\(T_e\) = Reference temperature of the electrons \par
 
 
 % example from here http://www.texample.net/tikz/examples/simple-flow-chart/
 
-\subsection{Particle in Cell Algorithm}
+\section{Particle in Cell Algorithm}
 \label{sec:algorithm}
 
 \tikzstyle{block} = [rectangle, draw, fill=white, 
@@ -119,26 +120,29 @@ The characteristic length of those charge inequalities can be calculated through
         \path [line] (poisson) -- (e_field);
         \path [line] (e_field) -- (stop);
     \end{tikzpicture}
+    \caption[DSMC-PIC Hybrid Code Flow]{DSMC-PIC Hybrid Code Flow. White blocks are DSMC algorithms \cite{Galvez2018a}. Red are PIC. IN WORK - WAITING ON TEX FILES FROM DAVID}
     \label{fig:pic_flow}
-    \caption{DSMC-PIC Hybrid Code Flow. White blocks are DSMC algorithms \cite{Galvez2018a}. Red are PIC. IN WORK - WAITING ON TEX FILES FROM DAVID}
 \end{figure}
 
-There are many ways to take these formulas and code flow and turn into a working simulation.  There could be multiple methods for all of these calculations, which leads to the various techniques for PIC codes, similar to the various DSMC codes. The ones chosen for this are simple and robust. First, while the DSMC method is based upon cells full of particles, the PIC method depends on the nodes of the cells upon which the fields can be calculated. When calculating the charge density, the charge must be distributed to those nodes. This is done through weighted charge distribution. The distance between the particle and the 8 nodes of it's cell is calculated, and then the 8 different volumes which the particle cuts the cell into are calculated. Those weights determine the amount of charge from the particle distributed to each node. \par
+This set of equations then gives us the particle in cell method; firstly, the charge density is calculated, then the electric potential, and finally the electric field. Use that field to update the velocities of the particles. The addition of these calculations into the DSMC method is shown in Figure \ref{fig:pic_flow}.
 
-\indent Once this is done, Poisson's equation can be solved. This is the most computationally intensive part of a PIC code because Poisson's equation is a partial differential equation. To solve it in the PIC framework, it is discredited across the nodes. Then the different discretized partial differential equation solvers can be utilized to calculate the electric potential. For SINATRA, the Finite Difference method is used, as discussed in Section \ref{sec:finite_diff}. In order to solve the Finite Difference a linear equation solver must be implemented, which in the case of SINATRA is Gauss-Seidel. This implementation is shown in Section \ref{sec:gauss}. \par
+\indent There are many ways to take these formulas and code flow and turn into a working simulation. There could be multiple methods for all of these calculations, which leads to the various techniques for PIC codes, similar to the various DSMC codes. The ones chosen for this are simple and robust. First, while the DSMC method is based upon cells full of particles, the PIC method depends on the nodes of the cells upon which the fields can be calculated. When calculating the charge density, the charge must be distributed to those nodes. This is done through weighted charge distribution. The distance between the particle and the 8 nodes of it's cell are calculated, and then the 8 different volumes which cut into the particle are calculated. Those weights determine the amount of charge from the particle distributed to each node. \par
 
-\indent Once the electric potential solver is shown to be converged, the electric field can be calculated. A popular way to do this, and the implementation in SINATRA, is using a forward difference method. This can be seen in Equation \ref{eqn:forward}. This equation is only for the x direction and not for along a boundary. \par
+\indent Once this is done, Poisson's equation can be solved. This is the most computationally intensive part of a PIC code because Poisson's equation is a partial differential equation. To solve it in the PIC framework, it is discretized across the nodes. Then the different discretized partial differential equation solvers can be utilized to calculate the electric potential. For SINATRA, the Finite Difference method is used, as discussed in Section \ref{sec:finite_diff}. In order to solve the Finite Difference a linear equation solver must be implemented, which in the case of SINATRA is Gauss-Seidel. This implementation is shown in Section \ref{sec:gauss}. \par
+
+\indent Once the electric potential solver is shown to be converged, the electric field can be calculated. A popular way to do this, and the implementation in SINATRA, is using a forward difference method. This can be seen in Equation \ref{eqn:forward}. The equation shown is only for the x direction and not for along a boundary. \par
 
 \Needspace{5\baselineskip}
 \begin{equation}
     \label{eqn:forward}
     E_{x,i} = - \frac{\phi_{i+1,j,k} - \phi_{i-1,j,k}}{2 \Delta x}
 \end{equation}
+\(E\) = Electric field \\
+\(\phi\) = Electric potential \\
 \(x\) = Distance between nodes in the X direction \\
-\(\phi\) = Electric Potential \\
 \(i \: \text{,} \: j \: \text{and} \: k\) = The x,y, and z node directions respectively  \par
 
-\indent These three steps only need to be calculated once during the timestep, hence the beauty of the PIC method. During the Move Particle part of the DSMC code, these calculations are utilized. Before updating the position of the particle, the velocity is updated. Rearranging and simplifying Equation \ref{eqn:lorenz} gives the acceleration as \(a_x = \frac{q}{m} E_x\). This is used to update the velocity before updating the position of the particle. Then all that is left to do is incorporate PIC settings into the input and output systems of the DSMC and a functioning DSMC-PIC code is born. 
+\indent These three steps only need to be calculated once during the timestep, hence the beauty of the PIC method. During the Move Particle part of the DSMC code, these calculations are utilized. Before updating the position of the particle, the velocity is updated. Rearranging and simplifying Equation \ref{eqn:lorentz} gives the acceleration as \(a_x = \frac{q}{m} E_x\). This is used to update the velocity before updating the position of the particle. Finally, PIC settings are incorporated into the input and output systems of the DSMC and a functioning DSMC-PIC code is born. 
 % change this if do the leap frog method. 
 
 
