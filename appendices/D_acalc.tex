@@ -1,0 +1,41 @@
+\chapter{Ambipolar Diffusion Coefficient}
+\label{app:adc}
+Seen below is a MATLAB\textsuperscript{TM} which can calculate the ambipolar diffusion coefficient. 
+
+\begin{verbatim}
+
+
+% Dominic Lunde
+% Validation of ambipolar diffusion
+
+close all;
+clearvars;
+
+% page 78
+
+%-D_a grad^2 n = 0;
+
+e = 1.6e-19;
+m_e = 9.109e-31;
+m_i = 6.63e-26;
+k = 1.38e-23;
+
+n_e = 10^12;
+T_eV = 100;
+T_i = 5000;
+
+% page 70
+lnV = 23 - 0.5 * log(10^6 * n_e / T_eV^3);
+
+nu = 2.9e-12 * n_e * lnV / T_eV^1.5;
+
+
+mu_e = e / (m_e * nu);
+mu_i = e / (m_i * nu);
+
+D_e = T_eV / (m_e * nu);
+D_i = k * T_i / (m_i * nu);
+
+D_a = (mu_i * D_e + mu_e * D_i) / (mu_i + mu_e);
+
+\end{verbatim}

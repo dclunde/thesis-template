@@ -1,21 +1,21 @@
 \chapter{SINATRA Input Files for Validation}
 \label{app:validation_input}
 
-\textbf{8 Cell Convergence Visual}
+\textbf{Cell Convergence Visual}
 
 \begin{verbatim}
-    *** SINATRA Input File ***
+*** SINATRA Input File ***
 *** Created by User domin with SINATRA_GUI.m ***
 *** 09-May-2019 12:23:24 ***
 
 Mesh Input Filename
-../resources/FE_NodeLocations_UnitCubeQuad8Cells_TEC.plt
+../resources/FE_NodeLocations_UnitCubeQuad64Cells_TEC.plt
 
 Number of Real Particles to Simulation Particles
-1e+19
+1e25
 
 Boundary Conditions
-OUTFLOW DWALL DWALL DWALL DWALL DWALL
+OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW
 
 Collision Scheme
 0
@@ -24,21 +24,21 @@ Sphere Model
 1
 
 Total Simulation Time
-1e-08
+1e-5
 
 Time Step
-1e-08
+1e-5
 
 Initial Conditions
 
 Number Density
-8e+19
+1e28
 
 Mixture
 1 1.0
 
 Stream Temperature
-300
+100
 
 Stream Velocity
 0 0 0
@@ -155,7 +155,12 @@ Sample Cell Type
 1
 
 Tecplot Sample Frequency
-10
+1
+
+Particle Animation
+0
+1
+../resources/VelocityOutput/velocityFromParticles_
 
 ***
 
@@ -221,21 +226,19 @@ Charged Simulation
 
 \newpage
 
-\textbf{4096 Cell Convergence Visual}
+\textbf{Ambipolar - 5\% solver}
 
 \begin{verbatim}
-    *** SINATRA Input File ***
-*** Created by User domin with SINATRA_GUI.m ***
-*** 09-May-2019 12:23:24 ***
+*** SINATRA Input File ***
 
 Mesh Input Filename
 ../resources/FE_NodeLocations_UnitCubeQuad4096Cells_TEC.plt
 
 Number of Real Particles to Simulation Particles
-1e+19
+1e9
 
 Boundary Conditions
-DWALL DWALL DWALL DWALL DWALL DWALL
+OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW
 
 Collision Scheme
 0
@@ -244,21 +247,21 @@ Sphere Model
 1
 
 Total Simulation Time
-1e-08
+500e-7
 
 Time Step
-1e-08
+1e-7
 
 Initial Conditions
 
 Number Density
-1e+24
+1e12
 
 Mixture
-1 1.0
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -270,13 +273,13 @@ Boundary Condition Information
 BC 0
 
 Number Density
-1e+23
+1e12
 
 Mixture
-1 1
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -286,13 +289,13 @@ Stream Velocity
 BC 1
 
 Number Density
-1e+23
+1e12
 
 Mixture
-1 1
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -302,13 +305,13 @@ Stream Velocity
 BC 2
 
 Number Density
-1e+23
+1e12
 
 Mixture
-1 1
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -318,13 +321,13 @@ Stream Velocity
 BC 3
 
 Number Density
-1e+23
+1e12
 
 Mixture
-1 1
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -334,13 +337,13 @@ Stream Velocity
 BC 4
 
 Number Density
-1e+23
+1e12
 
 Mixture
-1 1
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -350,13 +353,13 @@ Stream Velocity
 BC 5
 
 Number Density
-1e+23
+1e12
 
 Mixture
-1 1
+3 1.0
 
 Stream Temperature
-300
+5000
 
 Stream Velocity
 0 0 0
@@ -366,16 +369,16 @@ Stream Velocity
 Output Information
 
 Output File Name
-../resources/SINATRA_OUTPUT.txt
+../resources/SINATRA_OUTPUT_Ambipolar_0.05.txt
 
 Tecplot Base Name
-../resources/TecplotOutput/SINATRA_uniform_properties.plt
+../resources/TecplotOutput/SINATRA_Ambipolar_0.05_uniform_properties.plt
 
 Sample Cell Type
 1
 
 Tecplot Sample Frequency
-10
+5
 
 ***
 
@@ -391,7 +394,7 @@ Species 1 (Nitrogen, N2)
 3371
 0.74
 1.656e-05
-1e-19
+0
 
 Species 2 (Oxygen, O2)
 273
@@ -415,7 +418,889 @@ Species 3 (Argon, Ar)
 0
 0.81
 2.117e-05
+1.6e-19
+
+Species 4 (Carbon Dioxide, CO2)
+273
+5.62e-010
+7.31e-026
+3
+4
+0.561
+1700
+0.93
+1.380e-05
 0
+
+***
+
+Optional Keywords
+
+Parallel Enabled
+
+Charged Simulation
+
+***
+
+\end{verbatim}
+
+
+\newpage
+
+\textbf{Ambipolar - 64 cells}
+
+\begin{verbatim}
+*** SINATRA Input File ***
+
+Mesh Input Filename
+../resources/FE_NodeLocations_UnitCubeQuad64Cells_TEC.plt
+
+Number of Real Particles to Simulation Particles
+1e9
+
+Boundary Conditions
+OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW
+
+Collision Scheme
+0
+
+Sphere Model
+1
+
+Total Simulation Time
+500e-7
+
+Time Step
+1e-7
+
+Initial Conditions
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+***
+
+Boundary Condition Information
+
+BC 0
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 1
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 2
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 3
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 4
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 5
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+***
+
+Output Information
+
+Output File Name
+../resources/SINATRA_OUTPUT_Ambipolar_64.txt
+
+Tecplot Base Name
+../resources/TecplotOutput/SINATRA_Ambipolar_64_uniform_properties.plt
+
+Sample Cell Type
+1
+
+Tecplot Sample Frequency
+5
+
+***
+
+Species Information
+
+Species 1 (Nitrogen, N2)
+273
+4.17e-010
+4.65e-026
+2
+2
+2.88
+3371
+0.74
+1.656e-05
+0
+
+Species 2 (Oxygen, O2)
+273
+4.07e-010
+5.31e-026
+2
+2
+2.07
+2256
+0.77
+1.919e-05
+0
+
+Species 3 (Argon, Ar)
+273
+4.17e-010
+6.63e-026
+0
+0
+0
+0
+0.81
+2.117e-05
+1.6e-19
+
+Species 4 (Carbon Dioxide, CO2)
+273
+5.62e-010
+7.31e-026
+3
+4
+0.561
+1700
+0.93
+1.380e-05
+0
+
+***
+
+Optional Keywords
+
+Parallel Enabled
+
+Charged Simulation
+
+***
+
+\end{verbatim}
+
+
+\newpage
+
+\textbf{Ambipolar - 10 times more particles}
+
+\begin{verbatim}
+*** SINATRA Input File ***
+
+Mesh Input Filename
+../resources/FE_NodeLocations_UnitCubeQuad64Cells_TEC.plt
+
+Number of Real Particles to Simulation Particles
+1e6
+
+Boundary Conditions
+OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW
+
+Collision Scheme
+0
+
+Sphere Model
+1
+
+Total Simulation Time
+500e-7
+
+Time Step
+1e-7
+
+Initial Conditions
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+***
+
+Boundary Condition Information
+
+BC 0
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 1
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 2
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 3
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 4
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 5
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+***
+
+Output Information
+
+Output File Name
+../resources/SINATRA_OUTPUT_Ambipolar_64more.txt
+
+Tecplot Base Name
+../resources/TecplotOutput/SINATRA_Ambipolar_64more_uniform_properties.plt
+
+Sample Cell Type
+1
+
+Tecplot Sample Frequency
+5
+
+***
+
+Species Information
+
+Species 1 (Nitrogen, N2)
+273
+4.17e-010
+4.65e-026
+2
+2
+2.88
+3371
+0.74
+1.656e-05
+0
+
+Species 2 (Oxygen, O2)
+273
+4.07e-010
+5.31e-026
+2
+2
+2.07
+2256
+0.77
+1.919e-05
+0
+
+Species 3 (Argon, Ar)
+273
+4.17e-010
+6.63e-026
+0
+0
+0
+0
+0.81
+2.117e-05
+1.6e-19
+
+Species 4 (Carbon Dioxide, CO2)
+273
+5.62e-010
+7.31e-026
+3
+4
+0.561
+1700
+0.93
+1.380e-05
+0
+
+***
+
+Optional Keywords
+
+Parallel Enabled
+
+Charged Simulation
+
+***
+
+\end{verbatim}
+
+\newpage
+
+\textbf{Neutral diffusion}
+
+\begin{verbatim}
+*** SINATRA Input File ***
+
+Mesh Input Filename
+../resources/FE_NodeLocations_UnitCubeQuad4096Cells_TEC.plt
+
+Number of Real Particles to Simulation Particles
+1e9
+
+Boundary Conditions
+OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW
+
+Collision Scheme
+0
+
+Sphere Model
+1
+
+Total Simulation Time
+500e-7
+
+Time Step
+1e-7
+
+Initial Conditions
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+***
+
+Boundary Condition Information
+
+BC 0
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 1
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 2
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 3
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 4
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 5
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+5000
+
+Stream Velocity
+0 0 0
+
+***
+
+Output Information
+
+Output File Name
+../resources/SINATRA_OUTPUT_Neutral.txt
+
+Tecplot Base Name
+../resources/TecplotOutput/SINATRA_Neutral_uniform_properties.plt
+
+Sample Cell Type
+1
+
+Tecplot Sample Frequency
+5
+
+***
+
+Species Information
+
+Species 1 (Nitrogen, N2)
+273
+4.17e-010
+4.65e-026
+2
+2
+2.88
+3371
+0.74
+1.656e-05
+0
+
+Species 2 (Oxygen, O2)
+273
+4.07e-010
+5.31e-026
+2
+2
+2.07
+2256
+0.77
+1.919e-05
+0
+
+Species 3 (Argon, Ar)
+273
+4.17e-010
+6.63e-026
+0
+0
+0
+0
+0.81
+2.117e-05
+1.6e-19
+
+Species 4 (Carbon Dioxide, CO2)
+273
+5.62e-010
+7.31e-026
+3
+4
+0.561
+1700
+0.93
+1.380e-05
+0
+
+***
+
+Optional Keywords
+
+Parallel Enabled
+
+***
+
+\end{verbatim}
+
+
+\newpage
+
+
+\textbf{Steady Flow}
+
+\begin{verbatim}
+*** SINATRA Input File ***
+
+Mesh Input Filename
+../resources/FE_NodeLocations_UnitCubeQuad512Cells_TEC.plt
+
+Number of Real Particles to Simulation Particles
+0.5e9
+
+Boundary Conditions
+INFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW OUTFLOW
+
+Collision Scheme
+0
+
+Sphere Model
+1
+
+Total Simulation Time
+100e-8
+
+Time Step
+1e-8
+
+Initial Conditions
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+1000 0 0
+
+***
+
+Boundary Condition Information
+
+BC 0
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+1000 0 0
+
+&
+
+BC 1
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 2
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 3
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 4
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+0 0 0
+
+&
+
+BC 5
+
+Number Density
+1e12
+
+Mixture
+3 1.0
+
+Stream Temperature
+500
+
+Stream Velocity
+0 0 0
+
+***
+
+Output Information
+
+Output File Name
+../resources/SINATRA_OUTPUT.txt
+
+Tecplot Base Name
+../resources/TecplotOutput/SINATRA_uniform_properties.plt
+
+Sample Cell Type
+1
+
+Tecplot Sample Frequency
+500
+
+***
+
+Species Information
+
+Species 1 (Nitrogen, N2)
+273
+4.17e-010
+4.65e-026
+2
+2
+2.88
+3371
+0.74
+1.656e-05
+0
+
+Species 2 (Oxygen, O2)
+273
+4.07e-010
+5.31e-026
+2
+2
+2.07
+2256
+0.77
+1.919e-05
+0
+
+Species 3 (Argon, Ar)
+273
+4.17e-010
+6.63e-026
+0
+0
+0
+0
+0.81
+2.117e-05
+1.6e-19
 
 Species 4 (Carbon Dioxide, CO2)
 273
@@ -438,4 +1323,3 @@ Charged Simulation
 ***
 
 \end{verbatim}
-

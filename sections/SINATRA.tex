@@ -1,8 +1,8 @@
 \section{SINATRA}
 
-This thesis centers on being one of the initial development projects of a Cal Poly DSMC code, and implementing of the PIC component to this code. The code-base is code-named SINATRA. SINATRA is developed in C++ for a few purposes. C++ is a current industry standard for large simulations and therefore has a large support base with libraries, a developer community, and a large portion of developers know how to read and develop in C++. It is one of the fastest higher level , object oriented languages.  
+This thesis centers on being one of the initial development projects of a Cal Poly DSMC code, and the implementation of the PIC component to this code. SINATRA is developed in the C++ language for a few purposes. C++ is a current industry standard for large simulations and therefore has a large support base with libraries, a developer community, and a large portion of developers know how to read and develop in C++. It is one of the fastest higher level , object-oriented languages.  
 
-\subsection{Object Oriented}
+\subsection{Object-Oriented}
 
 \begin{figure}
     \centering
@@ -11,32 +11,32 @@ This thesis centers on being one of the initial development projects of a Cal Po
     \label{fig:classes}
 \end{figure}
 
-SINATRA is based in object oriented programming. Object oriented programming is a method of developing which utilizes `objects' that can be given variable characteristics. This allows a developer to create an object for a type of item in their program and then create many of those objects each with varying characteristics. It opens the door to functions being associated with various objects and those objects containing an idea of `self' in referring to the characteristics of that particular instance of the object. A simple version of a class can be seen in Figure \ref{fig:classes}. \par
+SINATRA is based in object-oriented programming. Object-oriented programming is a method of developing which utilizes `objects' that can be given variable characteristics. This allows a developer to create an object for a type of item in their program and then create many of those objects each with varying characteristics. It opens the door to functions being associated with various objects and those objects containing an idea of `self' in referring to the characteristics of that particular instance of the object. A simple version of a class can be seen in Figure \ref{fig:classes}. \par
 
 \indent This method is particularity helpful in DSMC simulations. There are two large data structures which must be tracked: the mesh and the particles. A class structure fits right into that gap. Refer to Galvez's Thesis to see the exact breakdown of data structures used in SINATRA \cite{Galvez2018a}. \par
 
 \subsection{Octree Mesh}
 \label{sec:octree}
 
-Another important feature of SINATRA is the octree mesh. Octree is a tree method of storing data, where each parent item has 8 children. An octree mesh has two main benefits; it is a well known data structure which is well documented and serves as a mesh refinement algorithm. A small example of the octree structure and it's refinement capability can be seen in Figure \ref{fig:octree}. \par
+Another important feature of SINATRA is the octree mesh. Octree is a tree method of storing data, where each parent item has 8 children. An octree mesh has two main benefits; it is a well-known data structure which is well documented and serves as a mesh refinement algorithm. A small example of the octree structure and its refinement capability can be seen in Figure \ref{fig:octree}. \par
 
 
 \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{figures/octree.png}
-    \caption[A demonstration of an octree mesh and it's data structure]{A demonstration of an octree mesh and it's data structure  \cite{octree}}
+    \caption[A demonstration of an octree mesh and its data structure]{A demonstration of an octree mesh and its data structure  \cite{octree}}
     \label{fig:octree}
 \end{figure}
 
 
-\indent An octree mesh is built from a cube domain, which is cut into 8 initial cells. Then, depending on user settings, more refinement is made until the mesh is well generated for the simulation case. If the simulation wants to show a curved surface, the cells are refined near the surface until the mesh is a good approximation of the object. Optimal mesh settings are on a simulation to simulation basis and are a largely a user controlled portion of CFD analysis. However, a discussion on automatic mesh generation and adaptation can be found in Section \ref{sec:auto_mesh}. The important advantage of octree meshes for DSMC is that when a particle moves out of a cell, it is less computationally intensive to find into which cell it moved compared to more primitive algorithms. The system can move up one level to the original cell's parent and then search all of that parents children. This speeds up the linking phase of DSMC. \par
+\indent An octree mesh is built from a cube domain, which is cut into 8 initial cells. Then, depending on user settings, more refinement is made until the mesh is well-suited for the simulation case. If the simulation wants to show a curved surface, the cells are refined near the surface until the mesh is a good approximation of the object. Optimal mesh settings are on a simulation to simulation basis and are a largely a user controlled portion of CFD analysis. However, a discussion on automatic mesh generation and adaptation can be found in Section \ref{sec:auto_mesh}. The important advantage of octree meshes for DSMC is that when a particle moves out of a cell, it is less computationally intensive to find into which cell it moved compared to more primitive algorithms. The system can move up one level to the original cell's parent and then search all of that parent's children. This algorithm speeds up the linking phase of DSMC. \par
 
 
 
 \subsection{Models Implemented}
 \label{sec:models}
 
-There are various ways to physically model particles and domains. A good CFD program will include multiple options for a simulation so the analyst can test different types to see which works best for their simulation case. Therefore, multiple models for boundaries, particle spheres, and collision schemes have been built into SINATRA by Alliston and Galvez \cite{Galvez2018a} \cite{mac_thesis}. The different types can be seen below. It is also important to note, these models have been built specifically for DSMC, taking into account the `super-particles' and statistical dependency. 
+There are various ways to physically model particles and domains. A good CFD program will include multiple options for a simulation so the analyst can test different types to see which works best for their simulation case. Therefore, multiple models for boundaries, particle spheres, and collision schemes have been built into SINATRA by Alliston and Galvez \cite{Galvez2018a,mac_thesis}. The different types can be seen below. It is also important to note, these models have been built specifically for DSMC, taking into account the `super-particles' and statistical dependency. 
 
 
 \begin{itemize}
@@ -46,7 +46,7 @@ There are various ways to physically model particles and domains. A good CFD pro
         \item \textit{Inflow} \\
         This wall allows particles to be inserted into the domain through the inject particles algorithm.
         \item \textit{Outflow} \\
-        The wall allows particles to leave the domain if they cross this boundary.
+        The wall allows particles to leave the domain if they cross this boundary.\footnote{Note, there is also a process by which particles may enter the domain through an outflow wall according to the temperature of the simulated gas on the other side of the wall. This wall will remain named an outflow wall on account of the name within the heritage code. It would be future work to add a new boundary wall which has a pure outflow wall and to rename the current one to accommodate.}
         \item \textit{Spectral}\\
         This wall is similar to a symmetry plane, the particles are reflected off this wall spectrally.
         \item \textit{Diffuse}\\
@@ -56,7 +56,7 @@ There are various ways to physically model particles and domains. A good CFD pro
     \end{itemize}
     
     \item \textbf{Sphere Models}\\
-    When modeling particles, it is important to have a model of the electron sphere around the particle and it's effective radius.
+    When modeling particles, it is important to have a model of the electron sphere around the particle and its effective radius.
     \begin{itemize}
         \item \textit{Hard Sphere Model}\\
         This model gives each particle a set radius and cross section.
@@ -71,11 +71,11 @@ There are various ways to physically model particles and domains. A good CFD pro
     There are many different ways to choose particles for collisions and to simulate those collisions. Note - it is also possible in SINATRA to turn off collisions.
     \begin{itemize}
         \item \textit{Discrete Sub-Cell}\\
-        This method cuts each cell into smaller sub-cells, then chooses particles from the sub cell to collide using an accept reject method. 
+        This method cuts each cell into smaller sub-cells, then chooses particles from the sub cell to collide using an accept-reject method. 
         \item \textit{Nearest Neighbor Scheme}\\
         This method checks the distance between every particle in the cell and chooses the closest particles as the collision partner.
         \item \textit{Trajectory Scheme}\\
-        This method takes the trajectory of the particle in question, creates a virtual sub-cell from it's projected position, and then chooses a collision partner from that. 
+        This method takes the trajectory of the particle in question, creates a virtual sub-cell from its projected position, and then chooses a collision partner from that. 
     \end{itemize}
 \end{itemize}
 
@@ -83,4 +83,4 @@ There are various ways to physically model particles and domains. A good CFD pro
 \subsection{Output Methods}
 \label{sec:output}
 
-Finally, an important part of a DSMC simulation is outputting the properties of the flow. SINATRA has three main methods for outputting information. The first is the simple timestep file. This file is appended to after SINATRA completes each timestep. This allows the simulation to be tracked as it is being run in the background. The next method is the main macro-properties sampler. It goes through all the sample cells, which can either be the lowest or second lowest level of cells and performs two loops. First it looks at all the particles in that cell and sums their properties, then it goes through all the species and calculates the various averages and data for which the specific output case calls. These values are output in a TecPlot\textsuperscript{TM} format and can be adjusted to be printed out every time step or every few steps. The final output method prints out each particle location and velocity. This creates a strong debugging tool to understand exactly what is happening in the flow. 
+Finally, an important part of a DSMC simulation is outputting the properties of the flow. SINATRA has three main methods for outputting information. The first is the simple time-step file. This file is appended to after SINATRA completes each time-step. This allows the simulation to be tracked as it is being run in the background. The next method is the main macro-properties sampler. It goes through all the sample cells, which can either be the lowest or second lowest level of cells and performs two loops. First it looks at all the particles in that cell and sums their properties, then it goes through all the species and calculates the various averages and data for which the specific output case calls. These values are output in a TecPlot\textsuperscript{TM} format and can be adjusted to be printed out every time-step or every few steps. The final output method prints out each particle location and velocity. This creates a strong debugging tool to understand exactly what is happening in the flow. 
