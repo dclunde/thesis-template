@@ -7,7 +7,7 @@ This thesis centers on being one of the initial development projects of a Cal Po
 \begin{figure}
     \centering
     \includegraphics[width=.95\textwidth]{figures/classes.png}
-    \caption[A visualization of a Cat Class including the Fields and Methods]{A visualization of a Cat Class including the Fields and Methods  \cite{classes}}
+    \caption[A visualization of a Cat Class including the Fields and Methods]{A visualization of a Cat Class including the Fields and Methods \textmd{\cite{classes}}}
     \label{fig:classes}
 \end{figure}
 
@@ -24,7 +24,7 @@ Another important feature of SINATRA is the octree mesh. Octree is a tree method
 \begin{figure}
     \centering
     \includegraphics[width=.7\textwidth]{figures/octree.png}
-    \caption[A demonstration of an octree mesh and its data structure]{A demonstration of an octree mesh and its data structure  \cite{octree}}
+    \caption[A demonstration of an octree mesh and its data structure]{A demonstration of an octree mesh and its data structure  \textmd{\cite{octree}}}
     \label{fig:octree}
 \end{figure}
 
@@ -40,41 +40,41 @@ There are various ways to physically model particles and domains. A good CFD pro
 
 
 \begin{itemize}
-    \item \textbf{Boundary Types} \\
+    \item Boundary Types \\
     These define the boundary conditions of the walls of the domain.
     \begin{itemize}
-        \item \textit{Inflow} \\
+        \item Inflow \\
         This wall allows particles to be inserted into the domain through the inject particles algorithm.
-        \item \textit{Outflow} \\
+        \item Outflow \\
         The wall allows particles to leave the domain if they cross this boundary.\footnote{Note, there is also a process by which particles may enter the domain through an outflow wall according to the temperature of the simulated gas on the other side of the wall. This wall will remain named an outflow wall on account of the name within the heritage code. It would be future work to add a new boundary wall which has a pure outflow wall and to rename the current one to accommodate.}
-        \item \textit{Spectral}\\
+        \item Spectral\\
         This wall is similar to a symmetry plane, the particles are reflected off this wall spectrally.
-        \item \textit{Diffuse}\\
+        \item Diffuse\\
         This wall has particles collide with the wall as if there was a user defined imaginary gas on the other side of the wall.
-        \item \textit{Periodic} \\
+        \item Periodic \\
         This wall takes the particle which crosses it and injects it in the same place and position on the other periodic wall, allowing for cyclic simulations.
     \end{itemize}
     
-    \item \textbf{Sphere Models}\\
+    \item Sphere Models\\
     When modeling particles, it is important to have a model of the electron sphere around the particle and its effective radius.
     \begin{itemize}
-        \item \textit{Hard Sphere Model}\\
+        \item Hard Sphere Model\\
         This model gives each particle a set radius and cross section.
-        \item \textit{Variable Hard Sphere Model}\\
+        \item Variable Hard Sphere Model\\
         This model sets the hard sphere depending on transitional energy.
-        \item \textit{Variable Soft Sphere Model}\\
+        \item Variable Soft Sphere Model\\
         This model takes into account the collision partner particle when determining the cross section.
     \end{itemize}
     
     
-    \item \textbf{Collision Schemes} \\
+    \item Collision Schemes \\
     There are many different ways to choose particles for collisions and to simulate those collisions. Note - it is also possible in SINATRA to turn off collisions.
     \begin{itemize}
-        \item \textit{Discrete Sub-Cell}\\
+        \item Discrete Sub-Cell\\
         This method cuts each cell into smaller sub-cells, then chooses particles from the sub cell to collide using an accept-reject method. 
-        \item \textit{Nearest Neighbor Scheme}\\
+        \item Nearest Neighbor Scheme\\
         This method checks the distance between every particle in the cell and chooses the closest particles as the collision partner.
-        \item \textit{Trajectory Scheme}\\
+        \item Trajectory Scheme\\
         This method takes the trajectory of the particle in question, creates a virtual sub-cell from its projected position, and then chooses a collision partner from that. 
     \end{itemize}
 \end{itemize}
